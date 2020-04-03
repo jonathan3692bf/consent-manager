@@ -64,7 +64,9 @@ const cancelDialogContent = (
   </div>
 )
 
-const ConsentManagerExample = (props: { closeBehavior: CloseBehavior | CloseBehaviorFunction }) => {
+const ConsentManagerExample = (props: {
+  cancelBehavior: CloseBehavior | CloseBehaviorFunction
+}) => {
   const [prefs, updatePrefs] = React.useState<Preferences>(loadPreferences())
 
   const cleanup = onPreferencesSaved((preferences) => {
@@ -88,7 +90,7 @@ const ConsentManagerExample = (props: { closeBehavior: CloseBehavior | CloseBeha
         preferencesDialogContent={preferencesDialogContent}
         cancelDialogTitle={cancelDialogTitle}
         cancelDialogContent={cancelDialogContent}
-        closeBehavior={props.closeBehavior}
+        cancelBehavior={props.cancelBehavior}
       />
 
       <Pane marginX={100} marginTop={20}>
@@ -134,13 +136,13 @@ const ConsentManagerExample = (props: { closeBehavior: CloseBehavior | CloseBeha
   )
 }
 
-storiesOf('React Component / OnBannerClose interactions', module)
-  .add(`Dismiss`, () => <ConsentManagerExample closeBehavior={CloseBehavior.DISMISS} />)
-  .add(`Accept`, () => <ConsentManagerExample closeBehavior={CloseBehavior.ACCEPT} />)
-  .add(`Deny`, () => <ConsentManagerExample closeBehavior={CloseBehavior.DENY} />)
+storiesOf('React Component / OnCancelClose interactions', module)
+  .add(`Dismiss`, () => <ConsentManagerExample cancelBehavior={CloseBehavior.DISMISS} />)
+  .add(`Accept`, () => <ConsentManagerExample cancelBehavior={CloseBehavior.ACCEPT} />)
+  .add(`Deny`, () => <ConsentManagerExample cancelBehavior={CloseBehavior.DENY} />)
   .add(`Custom Close Behavior`, () => (
     <ConsentManagerExample
-      closeBehavior={(categories) => ({
+      cancelBehavior={(categories) => ({
         ...categories,
         advertising: false,
       })}
